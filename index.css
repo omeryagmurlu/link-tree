@@ -1,0 +1,147 @@
+@import url('https://unpkg.com/sanitize.css/evergreen.css');
+@import url('https://fonts.googleapis.com/css2?family=Rubik&family=Varela+Round&display=swap');
+
+/* some variables, options, edit accordingly */
+
+:root {
+    --text-color: #555555;
+    --background-color: #ffffff;
+    
+    --dark-mode-text-color: #efefef;
+    --dark-mode-background-color: #000000;
+
+    --text-big: 2.618em;
+    --text-med: 1.618em;
+    --text-nor: 1.075em;
+
+    --spacer: 32px;
+}
+
+html.nextcloud { /* when under nextcloud iframe */
+    --text-color: #efefef;
+    --background-color: #282828;
+}
+
+/* sanitize */
+a, a:hover, a:visited, a:active {
+    color: inherit;
+    text-decoration: none;
+}
+
+ul {
+    list-style-type: none;
+}
+
+/* layout */
+
+html {
+    height: 100%;
+    color: var(--text-color);
+    user-select: none;
+    font-family: "Rubik", sans-serif;
+}
+
+body {
+    min-height: 100%;
+    padding: calc(var(--spacer) * 2) 0;
+    background: var(--background-color);
+    
+    display: grid;
+    grid-template-columns: 1fr auto 60ch 1fr;
+    grid-template-rows: 1fr auto 1fr;
+    column-gap: var(--spacer);
+    row-gap: var(--spacer);
+
+    align-items: center; 
+    justify-items: center;
+}
+
+#inject {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+#clock {
+    grid-column: 3;
+    grid-row: 2;
+
+    font-size: calc(var(--text-big) * 3);
+}
+
+/* tree view */
+
+header {
+    margin-left: -20px; /* icon below */
+    font-family: "Varela Round", sans-serif;
+    font-size: var(--text-nor);
+    line-height: 1.9;
+    display: inline-block;
+}
+
+header.active::before {
+    /* from Humble New Tab Chrome Extension, below image too */ 
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAYFBMVEXR0dG8vLwHBwcMDAwAAAAPDw8AAADExMQAAAClpaUODg4TExOoqKgREREWFhbBwcEAAAAqKioAAAD////////Pz8////8AAABycnL///////8AAAA8PDw7Ozv///8AAABFcLj8AAAAIHRSTlOXjciUMKIggjWWsbaMlah8HbEVFCh1JFigEEIex8gWAFh1g4cAAABOSURBVHjalc9LEoAgDANQFAX8gn8Fbe9/S7aEFWb5pslMBWcphWvNYJENwmdnA/CSHhwAU1WHtMKqF5RehLbbYHQadxi9j5MB/PPvF0wEW/AdAYoPCN0AAAAASUVORK5CYII=);
+}
+
+ul.active {
+    /* who cares about transitions */
+    display: none;
+}
+
+header::before {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin: -3px 4px 0 0;
+    background-size: 100% 100%;
+    vertical-align: middle;
+
+    content: '';
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAMFBMVEUODg4jIyP///8AAAAAAAAAAAD///8HBwcAAAD///8AAAAODg4BAQEPDw8AAAADAwMNPiCWAAAAC3RSTlP+41u8vW1c9m97AMNANdEAAAA8SURBVHjarc5JCgAgDANAd61b/v9bBS1Uz80tA4GY+kUVon8hzu4klJlBB7gPhtubkRA6ACsniXaS2vUFQ4YJ5oaTNEEAAAAASUVORK5CYII=);
+}
+
+header.header-level0 {
+    margin-left: 0;
+    font-size: var(--text-big);
+}
+
+header.header-level0:before {
+    display: none;
+}
+
+#inject a {
+    font-size: var(--text-nor);
+}
+
+
+/* responsive */
+
+@media (max-width: 1200px) {
+    body {
+        grid-template-columns: 1fr auto 1fr;
+        grid-template-rows: auto 1fr auto;
+    }
+
+    #inject {
+        grid-column: 2;
+        grid-row: 3;
+    }
+
+    #clock {
+        grid-column: 2;
+        grid-row: 1;
+    }
+}
+
+@media (max-width: 800px) {
+    :root {
+        --text-big: 1.618em;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --text-color: var(--dark-mode-text-color);
+        --background-color: var(--dark-mode-background-color);
+    }
+}
