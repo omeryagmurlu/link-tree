@@ -1,5 +1,5 @@
 # link tree
-just a little startpage I've done for my home server, don't bother using on exotic browsers, evergreen (not dead) browsers work
+just a little startpage I've made for my home server, don't bother using on exotic browsers, evergreen (not dead) browsers work
 ### features
 - declarative tree definition: _declare your links in a declarative fashion with categories and conditional logic (mixins) (see `sites.sample.js` for an example)_
 - automatic night, light theme support <sup>_amoled black night mode_</sup>

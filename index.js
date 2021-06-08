@@ -11,10 +11,10 @@ const toggleVisibility = (elem, toggle, classTarget) => {
 }
 
 const hider = (elem, key, target) => {
-    let toggle = JSON.parse(window.localStorage.getItem(key))
+    let toggle = JSON.parse(window.localStorage.getItem(`hider#${key}`))
     return () => {
         toggle = !toggle
-        window.localStorage.setItem(key, toggle)
+        window.localStorage.setItem(`hider#${key}`, toggle)
         toggleVisibility(elem, toggle, target)
     }
 }
@@ -28,9 +28,20 @@ const entry = (key, link) => {
     a.href = link
     a.innerHTML = key
 
-    // fetch(link).then(res => { // some funny cors stuff, don't care that much about it
-    //     if (res.status === 401) a.style.textDecoration = 'strikethrough'
-    // })
+    let vis = window.localStorage.getItem(`vis#${key}#${link}`)
+    if (vis !== null) {
+        a.style.display = vis
+    }
+
+    fetch(link, { mode: 'no-cors' })
+    .then(() => {
+        a.style.display = 'block'
+        window.localStorage.setItem(`vis#${key}#${link}`, 'block')
+    }).catch(() => {
+        a.style.display = 'none'
+        window.localStorage.setItem(`vis#${key}#${link}`, 'none')
+        console.warn(`hidden: ${key} at ${link}`)
+    })
 
     return a
 }
@@ -51,10 +62,10 @@ const compose = (key, children, level) => {
     }
     section.appendChild(ul)
 
-    let toggle = JSON.parse(window.localStorage.getItem(key))
+    let toggle = JSON.parse(window.localStorage.getItem(`hider#${key}`))
     if (toggle === null) {
         toggle = true
-        window.localStorage.setItem(key, toggle)
+        window.localStorage.setItem(`hider#${key}`, toggle)
     }
     toggleVisibility(ul, toggle, header)
 

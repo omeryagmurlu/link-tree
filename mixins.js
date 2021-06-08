@@ -4,7 +4,7 @@
 export const hideWhenRef = (ref, link) => () => {
     if (window.location != window.parent.location) {
         const from = (new URLSearchParams(window.location.search)).get('from')
-        if (from === 'nextcloud') return null
+        if (from === ref) return null
     }
-    return 'https://nextcloud.oakleaf.duckdns.org'
+    return link
 }
